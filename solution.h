@@ -7,7 +7,7 @@ class Solution{
 
     private:
         std::vector <int> vec;
-        int dimension;
+        int dimension, fit;
         float m_rate, c_rate;
     public:
         Solution(int _dimension, float _m_rate, float _c_rate);

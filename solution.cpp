@@ -17,12 +17,15 @@ Solution::Solution(int _dimension,  float _m_rate, float _c_rate)
     std::mt19937 g(rd());
 
     std::shuffle(vec.begin(), vec.end(), g);
+    fit = fitness();
 
 } 
 
 // construct a Solution from an input vector
 Solution::Solution(const std::vector <int> &v, int _dimension, float _m_rate, float _c_rate) 
-: dimension(_dimension), m_rate(_m_rate), c_rate(_c_rate), vec(v) {}
+: dimension(_dimension), m_rate(_m_rate), c_rate(_c_rate), vec(v) {
+    fit = fitness();
+}
 
 
 // returns string of the Solution represented on a board
@@ -70,8 +73,17 @@ void Solution::swap_mutation() {
             }
         }
     }
+    fit = fitness();
 }
 
 int Solution::fitness() const {
-
+    int fitness{0};
+    for (unsigned int i=0; i<dimension-1; ++i) {
+        for (unsigned int j=i+1; j<dimension; ++j ) {
+            if ( (vec[i] - vec[j] == i-j) || (vec[i] - vec[j] == -i+j) ) {
+                --fitness;
+            }
+        }
+    }
+    return fitness;
 }
