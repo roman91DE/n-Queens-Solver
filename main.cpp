@@ -3,12 +3,13 @@
 
 int main() {
 
-    Solution s = Solution(10,.1, .9);
-    s.debug_print();
-    for (unsigned int j=0; j<10; ++j) {
-        s.swap_mutation();
-        s.debug_print();
+    Solution mom = Solution(10,0.5,0.999);
+    Solution dad = Solution(10,0.5,0.999);
+    mom.debug_print();
+    dad.debug_print();
 
-    }
+    Solution child = Solution::onepoint_crossover(mom, dad);
+    child.debug_print();
+    
     return 0;
 }
