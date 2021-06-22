@@ -5,7 +5,6 @@
 #include "solution.h"
 #include <vector>
 #include <string>
-#include <algorithm>
 
 
 class Population{
@@ -24,6 +23,7 @@ class Population{
         
 
     friend class Solution;
+    friend class EA;
 
 };
 

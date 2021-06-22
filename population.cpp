@@ -14,9 +14,6 @@ Population::Population(int _dimension, int _size, bool init, float m_rate, float
             vec.push_back(Solution(dimension, m_rate, c_rate));
             }
     }
-    if (population_size != vec.size()) {
-        std::cout << "Something went wrong!\n";
-    }
     average_fit = calc_avr();
 }
 

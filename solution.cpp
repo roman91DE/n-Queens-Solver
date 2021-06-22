@@ -47,6 +47,7 @@ std::string Solution::to_string() const{
         s += '\n';
         b = !(b);
     }
+    std::cout << "Fitness = " << fit <<'\n';
     return s;
 }
 
