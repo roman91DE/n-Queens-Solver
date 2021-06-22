@@ -33,6 +33,15 @@ class Solution{
         int get_dimension() const;
         float get_c_rate() const;
         float get_m_rate() const;
+
+        bool operator<(const Solution &other);
+        bool operator>(const Solution &other);
+        bool operator==(const Solution &other);
+        bool operator!=(const Solution &other);
+        bool operator<=(const Solution &other);
+        bool operator>=(const Solution &other);
+
+        friend class Population;
 };
 
 #endif

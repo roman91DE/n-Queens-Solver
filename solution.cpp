@@ -34,12 +34,18 @@ Solution::Solution(const Solution &other)
 // returns string of the Solution represented on a board
 std::string Solution::to_string() const{
     std::string s{};
+    bool b{true};
     for (unsigned int i=0; i<dimension; ++i) {
         for (unsigned int j=0; j<dimension; ++j) {
-            if (vec[i] == j)    {s += 'Q';}
-            else                { s+= '.';}
+            b = !(b);
+            if (vec[i] == j)    s += 'Q';
+            else { 
+                if (b)  s+='.';
+                else    s+=' ';
+                }
         }
         s += '\n';
+        b = !(b);
     }
     return s;
 }
@@ -160,4 +166,30 @@ Solution Solution::onepoint_crossover(const Solution &mother, const Solution &fa
             return Solution(father);
         }
     }
+}
+
+// operator overloading
+
+bool Solution::operator<(const Solution &other) {
+    return (fit<other.fit);
+}
+
+bool Solution::operator>(const Solution &other) {
+    return (fit>other.fit);
+}
+
+bool Solution::operator==(const Solution &other) {
+    return (fit==other.fit);
+}
+
+bool Solution::operator!=(const Solution &other) {
+    return (fit!=other.fit);
+}
+
+bool Solution::operator<=(const Solution &other) {
+    return (fit<=other.fit);
+}
+
+bool Solution::operator>=(const Solution &other) {
+    return (fit>=other.fit);
 }
