@@ -7,8 +7,19 @@
 
 
 int main() {
-    EA ea = EA(6,40, 10, 2, 10000,0.05,0.95);
-    //std::cout << "Constructor works\n";
-    ea.run(true);
+    int boardSize       = 40;
+    int mainPopSize     = 80;
+    int breadingPopSize = 20;
+    int tournamentSize  = 4;
+    int maxGenereations = 10000;
+    int eliteSize       = 4;
+    float mutateRate    = .08;
+    float crossoverRate = .95;
+    bool logResults     = true;
+
+
+    EA ea = EA(boardSize, mainPopSize, breadingPopSize, tournamentSize, maxGenereations, eliteSize, mutateRate, crossoverRate);
+    ea.run(logResults);
+
     return 0;
 }

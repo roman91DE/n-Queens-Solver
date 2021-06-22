@@ -11,7 +11,7 @@ class Population{
 
     private:
         std::vector<Solution> vec;
-        int population_size, dimension;
+        int dimension;
         float average_fit;
 
     public:
@@ -20,6 +20,7 @@ class Population{
         float calc_avr();
         const Solution& rand_select() const;
         void print_fit_debug() const;
+        int get_size() const;
         
 
     friend class Solution;

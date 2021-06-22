@@ -8,9 +8,9 @@
 #include <cstdio>
 
 Population::Population(int _dimension, int _size, bool init, float m_rate, float c_rate)
-: dimension(_dimension), population_size(_size) {
+: dimension(_dimension) {
     if (init) {
-        for (unsigned int i{0}; i<population_size; ++i) {
+        for (unsigned int i{0}; i<_size; ++i) {
             vec.push_back(Solution(dimension, m_rate, c_rate));
             }
     }
@@ -18,13 +18,17 @@ Population::Population(int _dimension, int _size, bool init, float m_rate, float
 }
 
 
+int Population::get_size() const {
+    return vec.size();
+}
+
 void Population::sort() {
     std::sort(vec.rbegin(), vec.rend());
 }
 
 
 void Population::print_fit_debug() const{
-    for (unsigned int i{0}; i<population_size; ++i) {
+    for (unsigned int i{0}; i<get_size(); ++i) {
         printf("Fitness of Solution %d: %d\n", i, vec[i].fit);
     }
 }
@@ -34,13 +38,13 @@ float Population::calc_avr() {
     for (auto &it:vec) {
         sum+= it.fit;
     }
-    return (float(sum) / float(population_size));
+    return (float(sum) / float(get_size()));
 }
 
 const Solution& Population::rand_select() const {
     std::random_device rd;
     std::mt19937 g(rd());
-    std::uniform_int_distribution <int> distr(0,population_size-1);
+    std::uniform_int_distribution <int> distr(0,get_size()-1);
     return vec[distr(g)];
 }
 

@@ -38,7 +38,7 @@ std::string Solution::to_string() const{
     for (unsigned int i=0; i<dimension; ++i) {
         for (unsigned int j=0; j<dimension; ++j) {
             b = !(b);
-            if (vec[i] == j)    s += 'Q';
+            if (vec[i] == j)    s += '+';
             else { 
                 if (b)  s+='.';
                 else    s+=' ';
@@ -125,7 +125,6 @@ Solution Solution::onepoint_crossover(const Solution &mother, const Solution &fa
     if (fl_distr(g) < mother.get_c_rate()) {
         std::vector <int> child_genotype{};
         int zv = int_distr(g);
-        // std::cout << "Pivot = " << zv << "\n";
         
         for (unsigned int i=0; i<zv; ++i) {
             child_genotype.push_back(mother.vec[i]);
