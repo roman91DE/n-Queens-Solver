@@ -11,7 +11,7 @@ int main() {
     int mainPopSize     = 80;
     int breadingPopSize = 20;
     int tournamentSize  = 4;
-    int time_limit_sec = 60;
+    int time_limit      = 60;
     int eliteSize       = 4;
     float mutateRate    = .05;
     float crossoverRate = .95;
@@ -23,7 +23,7 @@ int main() {
     std::cin >> boardSize;
 
     std::cout << "\nEnter the maximum time limit (in seconds):";
-    std::cin >> time_limit_sec;
+    std::cin >> time_limit;
 
     std::cout << "\nLog stats to external file?[y/n]";
     std::cin >> log;
@@ -31,7 +31,8 @@ int main() {
 
     std::cout << "\nStarting Evolution\n";
     
-    EA ea = EA(boardSize, mainPopSize, breadingPopSize, tournamentSize, time_limit_sec, eliteSize, mutateRate, crossoverRate);
+    EA ea = EA(boardSize, mainPopSize, breadingPopSize, tournamentSize, time_limit, eliteSize, mutateRate, crossoverRate);
+
     ea.run(logResults);
 
     return 0;

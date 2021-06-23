@@ -12,7 +12,7 @@ EA::EA(int _board, int _main, int _breading, int _tournament, int _seconds, int 
   main_pop(Population(board_dimension, main_pop_size, m_rate, c_rate)), cur_generation(0) {
     main_pop.sort();
     average_fit = main_pop.calc_avr();
-    best_fit = main_pop.vec[0].fitness();
+    best_fit = main_pop.best_select().fitness();
 }
 
 void EA::run(bool log) {
@@ -65,7 +65,7 @@ void EA::run(bool log) {
         }
 
         main_pop.sort();
-        best_fit = main_pop.vec[0].fitness();
+        best_fit = main_pop.best_select().fitness();
         average_fit = main_pop.calc_avr();
         ++cur_generation;
 
@@ -77,8 +77,6 @@ void EA::run(bool log) {
 
         t = std::chrono::high_resolution_clock::now();
         time_consumed = std::chrono::duration_cast <std::chrono::seconds>(t - t0).count();
-
-
 
         if (log) {log_file <<  cur_generation << "," << best_fit << "," << average_fit << "\n"; }
 

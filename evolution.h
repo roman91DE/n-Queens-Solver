@@ -7,17 +7,23 @@
 
 class EA {
     private:
-        // parameters
+    
+        // set by user
         int board_dimension;
-        int main_pop_size;
-        int breading_pop_size;
-        int tournament_size;
         int time_limit;
-        int elite_size;
-        float m_rate;
-        float c_rate;
-        // 
+
+        // default parameters
+        const int main_pop_size;
+        const int breading_pop_size;
+        const int tournament_size;
+        const int elite_size;
+        const float m_rate;
+        const float c_rate;
+
+        // member variable
         Population main_pop;
+
+        // stats
         int cur_generation;
         float average_fit;
         int best_fit;
