@@ -8,7 +8,7 @@
 
 EA::EA(int _board, int _main, int _breading, int _tournament, int _seconds, int _elite, float _mr, float _cr)
 : board_dimension(_board), main_pop_size(_main), breading_pop_size(_breading),tournament_size(_tournament),
-  time_limit_seconds(_seconds), m_rate(_mr), elite_size(_elite), c_rate(_cr),
+  time_limit(_seconds), m_rate(_mr), elite_size(_elite), c_rate(_cr),
   main_pop(Population(board_dimension, main_pop_size, m_rate, c_rate)), cur_generation(0) {
     main_pop.sort();
     average_fit = main_pop.calc_avr();
@@ -17,15 +17,12 @@ EA::EA(int _board, int _main, int _breading, int _tournament, int _seconds, int 
 
 void EA::run(bool log) {
 
-    using std::chrono::high_resolution_clock;
-    using std::chrono::duration_cast;
-    using std::chrono::duration;
-    using std::chrono::seconds;
-
     std::ofstream log_file;
+
+    // setting timer variables
     auto t0 = std::chrono::high_resolution_clock::now();
     auto t = std::chrono::high_resolution_clock::now();
-    auto time_consumed = std::chrono::duration_cast <seconds>(t - t0).count();
+    int time_consumed = std::chrono::duration_cast <std::chrono::seconds>(t - t0).count();
     
 
     if (log) {
@@ -36,7 +33,7 @@ void EA::run(bool log) {
     }
 
     // main loop: run if no solution is found and generation max isnt reached
-    while ((int(time_consumed)<time_limit_seconds) && (best_fit<0)) {
+    while ((time_consumed<time_limit) && (best_fit<0)) {
 
 
         Population elite_pool = Population();
@@ -79,7 +76,7 @@ void EA::run(bool log) {
         }
 
         t = std::chrono::high_resolution_clock::now();
-        time_consumed = std::chrono::duration_cast <seconds>(t - t0).count();
+        time_consumed = std::chrono::duration_cast <std::chrono::seconds>(t - t0).count();
 
 
 

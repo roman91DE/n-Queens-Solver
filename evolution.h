@@ -12,7 +12,7 @@ class EA {
         int main_pop_size;
         int breading_pop_size;
         int tournament_size;
-        int time_limit_seconds;
+        int time_limit;
         int elite_size;
         float m_rate;
         float c_rate;
