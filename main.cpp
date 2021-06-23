@@ -8,13 +8,13 @@
 
 int main() {
     int boardSize       = 32;
-    int mainPopSize     = 80;
-    int breadingPopSize = 20;
-    int tournamentSize  = 4;
+    int mainPopSize     = 250;
+    int breadingPopSize = 40;
+    int tournamentSize  = 10;
     int time_limit      = 60;
-    int eliteSize       = 4;
-    float mutateRate    = .05;
-    float crossoverRate = .95;
+    int eliteSize       = 5;
+    float mutateRate    = .025;
+    float crossoverRate = .975;
     bool logResults     = false;
     char log;
 
@@ -37,3 +37,17 @@ int main() {
 
     return 0;
 }
+
+
+/*
+    int boardSize       = 32;
+    int mainPopSize     = 80;
+    int breadingPopSize = 20;
+    int tournamentSize  = 4;
+    int time_limit      = 60;
+    int eliteSize       = 4;
+    float mutateRate    = .05;
+    float crossoverRate = .95;
+    bool logResults     = false;
+    char log;
+*/

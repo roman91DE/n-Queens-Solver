@@ -85,7 +85,13 @@ void EA::run(bool log) {
     if (log) {
         log_file.close();
     }
-    std::cout << "\nFinished after " << cur_generation << " generations\n";
+
+    t = std::chrono::high_resolution_clock::now();
+    time_consumed = std::chrono::duration_cast <std::chrono::seconds>(t - t0).count();
+
+    std::cout << "\nFinished after " << cur_generation << " generations\n"
+              << "Time consumed: " << time_consumed << " seconds\n";
+
     main_pop.best_select().print();
 }
 
