@@ -3,12 +3,12 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <ctime>
+#include <chrono>
 
 
 EA::EA(int _board, int _main, int _breading, int _tournament, int _seconds, int _elite, float _mr, float _cr)
 : board_dimension(_board), main_pop_size(_main), breading_pop_size(_breading),tournament_size(_tournament),
-  time_seconds(_seconds), m_rate(_mr), elite_size(_elite), c_rate(_cr),
+  time_limit_seconds(_seconds), m_rate(_mr), elite_size(_elite), c_rate(_cr),
   main_pop(Population(board_dimension, main_pop_size, m_rate, c_rate)), cur_generation(0) {
     main_pop.sort();
     average_fit = main_pop.calc_avr();
@@ -17,10 +17,16 @@ EA::EA(int _board, int _main, int _breading, int _tournament, int _seconds, int 
 
 void EA::run(bool log) {
 
-    std::ofstream log_file;
-    clock_t t;
-    t = clock();
+    using std::chrono::high_resolution_clock;
+    using std::chrono::duration_cast;
+    using std::chrono::duration;
+    using std::chrono::seconds;
 
+    std::ofstream log_file;
+    auto t0 = std::chrono::high_resolution_clock::now();
+    auto t = std::chrono::high_resolution_clock::now();
+    auto time_consumed = std::chrono::duration_cast <seconds>(t - t0).count();
+    
 
     if (log) {
         log_file.open("ea_log.csv");
@@ -30,9 +36,8 @@ void EA::run(bool log) {
     }
 
     // main loop: run if no solution is found and generation max isnt reached
-    while (((t/CLOCKS_PER_SEC)<time_seconds) && (best_fit<0)) {
+    while ((int(time_consumed)<time_limit_seconds) && (best_fit<0)) {
 
-        // std::cout << "Current Generation:" << cur_generation << "\n";
 
         Population elite_pool = Population();
         int ind = 0;
@@ -72,6 +77,9 @@ void EA::run(bool log) {
             std::cout << "Generation: " << cur_generation << "  Best Fitness: " << best_fit 
                       << "  Average Fitness: " << average_fit << "\n"; 
         }
+
+        t = std::chrono::high_resolution_clock::now();
+        time_consumed = std::chrono::duration_cast <seconds>(t - t0).count();
 
 
 

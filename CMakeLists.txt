@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(ea_queens VERSION 0.1.0)
+project(nQueens_EA VERSION 0.1.0)
 
 include(CTest)
 enable_testing()
 
-add_executable(ea_queens main.cpp solution.cpp population.cpp evolution.cpp)
+add_executable(nQueens_EA main.cpp solution.cpp population.cpp evolution.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
