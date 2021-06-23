@@ -34,6 +34,8 @@ class Solution{
         float get_c_rate() const;
         float get_m_rate() const;
 
+        void set_mutation_rate(float _m_rate);
+
         bool operator<(const Solution &other);
         bool operator>(const Solution &other);
         bool operator==(const Solution &other);

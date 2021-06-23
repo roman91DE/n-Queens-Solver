@@ -11,19 +11,19 @@ class Population{
 
     private:
         std::vector<Solution> vec;
-        int dimension;
         float average_fit;
-
     public:
-        Population(int _dimension, int _size, bool init, float m_rate, float c_rate);
+        Population(int _dimension, int _size, float m_rate, float c_rate);
+        Population();
+        void add_solution(const Solution &_solution);
         void sort();
         float calc_avr();
         const Solution& rand_select() const;
+        const Solution& best_select();
         void print_fit_debug() const;
         int get_size() const;
         
 
-    friend class Solution;
     friend class EA;
 
 };

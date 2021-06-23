@@ -7,16 +7,21 @@
 #include <random>
 #include <cstdio>
 
-Population::Population(int _dimension, int _size, bool init, float m_rate, float c_rate)
-: dimension(_dimension) {
-    if (init) {
-        for (unsigned int i{0}; i<_size; ++i) {
-            vec.push_back(Solution(dimension, m_rate, c_rate));
-            }
-    }
+// initialize population with random solutions 
+Population::Population(int _dimension, int _size, float m_rate, float c_rate) {
+    for (unsigned int i{0}; i<_size; ++i) {
+        add_solution(Solution(_dimension, m_rate, c_rate));
+        }
     average_fit = calc_avr();
 }
 
+// initialize empty population
+Population::Population(){}
+
+
+void Population::add_solution(const Solution &_solution) {
+    vec.push_back(_solution);
+}
 
 int Population::get_size() const {
     return vec.size();
@@ -48,3 +53,7 @@ const Solution& Population::rand_select() const {
     return vec[distr(g)];
 }
 
+const Solution& Population::best_select() {
+    sort();
+    return vec[0];
+}

@@ -12,7 +12,7 @@ class EA {
         int main_pop_size;
         int breading_pop_size;
         int tournament_size;
-        int max_generations;
+        int time_seconds;
         int elite_size;
         float m_rate;
         float c_rate;
@@ -23,7 +23,7 @@ class EA {
         int best_fit;
 
     public:
-        EA(int _board, int _main, int _breading, int _tournament, int _generations, int _elite, float _mr, float _cr);
+        EA(int _board, int _main, int _breading, int _tournament, int _seconds, int _elite, float _mr, float _cr);
         void run(bool log);
 };
 

@@ -7,18 +7,31 @@
 
 
 int main() {
-    int boardSize       = 40;
+    int boardSize       = 32;
     int mainPopSize     = 80;
     int breadingPopSize = 20;
     int tournamentSize  = 4;
-    int maxGenereations = 10000;
+    int time_limit_sec = 60;
     int eliteSize       = 4;
-    float mutateRate    = .08;
+    float mutateRate    = .05;
     float crossoverRate = .95;
-    bool logResults     = true;
+    bool logResults     = false;
+    char log;
 
+    std::cout << "\nSolve the n-Queens problems using an Evolutionaty Algorithm\n-----"
+              << "\nEnter Board Size: ";
+    std::cin >> boardSize;
 
-    EA ea = EA(boardSize, mainPopSize, breadingPopSize, tournamentSize, maxGenereations, eliteSize, mutateRate, crossoverRate);
+    std::cout << "\nEnter the maximum time limit (in seconds):";
+    std::cin >> time_limit_sec;
+
+    std::cout << "\nLog stats to external file?[y/n]";
+    std::cin >> log;
+    if ((log=='y') || (log == 'Y')) {logResults==true;}
+
+    std::cout << "\nStarting Evolution\n";
+    
+    EA ea = EA(boardSize, mainPopSize, breadingPopSize, tournamentSize, time_limit_sec, eliteSize, mutateRate, crossoverRate);
     ea.run(logResults);
 
     return 0;

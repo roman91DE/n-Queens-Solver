@@ -5,6 +5,7 @@
 #include <iterator>
 #include <iostream>
 #include <vector>
+#include <string>
 
 // construct a random Solution with input parameters
 Solution::Solution(int _dimension,  float _m_rate, float _c_rate)
@@ -38,16 +39,18 @@ std::string Solution::to_string() const{
     for (unsigned int i=0; i<dimension; ++i) {
         for (unsigned int j=0; j<dimension; ++j) {
             b = !(b);
-            if (vec[i] == j)    s += '+';
+            if (vec[i] == j)    s += 'Q';
             else { 
-                if (b)  s+='.';
-                else    s+=' ';
+                if (b)  s+=' ';
+                else    s+='.';
                 }
         }
         s += '\n';
         b = !(b);
     }
-    std::cout << "Fitness = " << fit <<'\n';
+    s += "\nRemaining Conflicts = " + std::to_string(-fit) + "\n-----\n";
+
+
     return s;
 }
 
@@ -166,6 +169,10 @@ Solution Solution::onepoint_crossover(const Solution &mother, const Solution &fa
             return Solution(father);
         }
     }
+}
+
+void Solution::set_mutation_rate(float _m_rate) {
+    m_rate = _m_rate;
 }
 
 // operator overloading
