@@ -13,6 +13,7 @@ class Solution{
         std::vector <int> vec;
         int dimension, fit;
         float m_rate, c_rate;
+        bool backtracking_sol;
         
 
     public:
@@ -43,7 +44,17 @@ class Solution{
         bool operator<=(const Solution &other);
         bool operator>=(const Solution &other);
 
+
+        // backtracking 
+
+        Solution(int _dimension);
+        bool is_possible(int num) const;
+        void place_queen(int pos, int indx);
+        void remove_queen(int indx);
+        bool is_solved() const;
+
         friend class Population;
+        friend class Backtracking;
 };
 
 #endif

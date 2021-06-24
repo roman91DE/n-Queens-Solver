@@ -9,7 +9,7 @@
 
 // construct a random Solution with input parameters
 Solution::Solution(int _dimension,  float _m_rate, float _c_rate)
-    : dimension(_dimension), m_rate(_m_rate), c_rate(_c_rate) {
+    : dimension(_dimension), m_rate(_m_rate), c_rate(_c_rate), backtracking_sol(false) {
     for (unsigned int i=0; i<dimension; ++i) {
         vec.push_back(i);
     }
@@ -23,13 +23,15 @@ Solution::Solution(int _dimension,  float _m_rate, float _c_rate)
 
 // construct a Solution from an input vector
 Solution::Solution(const std::vector <int> &v, int _dimension, float _m_rate, float _c_rate) 
-: dimension(_dimension), m_rate(_m_rate), c_rate(_c_rate), vec(v) {
+: dimension(_dimension), m_rate(_m_rate), c_rate(_c_rate), vec(v) , backtracking_sol(false){
     fit = fitness();
 }
 
 // copy construct Solution
 Solution::Solution(const Solution &other) 
-    : vec(other.vec), dimension(other.dimension), fit (other.fit), m_rate(other.m_rate), c_rate(other.c_rate) {}
+    : vec(other.vec), dimension(other.dimension), fit (other.fit), m_rate(other.m_rate), c_rate(other.c_rate), backtracking_sol(false) {}
+
+
 
 
 // returns string of the Solution represented on a board
@@ -48,15 +50,13 @@ std::string Solution::to_string() const{
         s += '\n';
         b = !(b);
     }
-    s += "\nRemaining Conflicts = " + std::to_string(-fit) + "\n-----\n";
-
-
     return s;
 }
 
+
 // stdout string repr of board
 void Solution::print() const{
-    std::cout << to_string();
+    std::cout << to_string() << "\nRemaining Conflicts = " + std::to_string(-fit) + "\n-----\n";
 }
 
 
@@ -199,4 +199,56 @@ bool Solution::operator<=(const Solution &other) {
 
 bool Solution::operator>=(const Solution &other) {
     return (fit>=other.fit);
+}
+
+
+/*
+Backtracking methods
+*/
+
+// create an empty solution for backtracking algorithm
+Solution::Solution(int _dimension) 
+: dimension(_dimension), m_rate(0.0), c_rate(0.0), fit(0) , backtracking_sol(true){
+    for (unsigned int i{0}; i<dimension; ++i) {
+        vec.push_back(-1);      // -1 encodes an empty position in our notation
+    }
+}
+
+// checks if num can be placed on first open position
+bool Solution::is_possible(int num) const {
+    int limit = 0;
+    while (true) {
+        if (vec[limit] != -1) { ++limit; }
+        else { break; }
+    }
+    for (unsigned int i{0}; i<limit; ++i) {
+        if (vec[i] == num) { return false; }
+        if ( ((vec[i] - num) == (i-limit))  ||  ((vec[i] - num) == -(i-limit)) ) { return false; }
+    }
+    return true;
+}
+
+void Solution::place_queen(int pos, int indx) {
+    vec[indx] = pos;
+}
+
+void Solution::remove_queen(int indx) {
+    vec[indx] = -1;
+}
+
+
+bool Solution::is_solved() const {
+    if (!(backtracking_sol)) {
+        std::cout << "Error - The method is_solved() may only be called on Solutions with member backtracking_sol = true\n";
+        return false;
+    }
+
+    if (vec.size()< dimension) { return false; }
+
+    for (auto &it:vec) {
+        if (it==-1) {
+            return false;
+        }
+    }
+    return (fitness()==0);
 }

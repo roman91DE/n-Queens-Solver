@@ -4,7 +4,7 @@ project(nQueens_EA VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_executable(nQueens_EA main.cpp solution.cpp population.cpp evolution.cpp)
+add_executable(nQueens_EA main.cpp solution.cpp population.cpp evolution.cpp backtracking.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
