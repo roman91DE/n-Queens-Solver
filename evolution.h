@@ -31,6 +31,7 @@ class EA {
     public:
         EA(int _board, int _main, int _breading, int _tournament, int _seconds, int _elite, float _mr, float _cr);
         void run(bool log);
+        static void evolutionary_algorithm();
 };
 
 

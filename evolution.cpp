@@ -96,3 +96,35 @@ void EA::run(bool log) {
 }
 
 
+
+void EA::evolutionary_algorithm() {
+
+    // default paramters
+    int boardSize       = 32;
+    int mainPopSize     = 250;
+    int breadingPopSize = 40;
+    int tournamentSize  = 10;
+    int time_limit      = 60;
+    int eliteSize       = 5;
+    float mutateRate    = .025;
+    float crossoverRate = .975;
+    bool logResults     = false;
+    char log;
+
+    // console input/output
+    std::cout << "\nSolve the n-Queens problems using an Evolutionaty Algorithm\n-----"
+                << "\nEnter Board Size: ";
+    std::cin >> boardSize;
+    std::cout << "\nEnter the maximum time limit (in seconds):";
+    std::cin >> time_limit;
+    std::cout << "\nLog stats to external file?[y/n]";
+    std::cin >> log;
+    if ((log=='y') || (log == 'Y')) {logResults==true;}
+    std::cout << "\nStarting Evolution\n";
+    
+    // init & run algorithm
+    EA ea = EA(boardSize, mainPopSize, breadingPopSize, tournamentSize, time_limit, eliteSize, mutateRate, crossoverRate);
+    ea.run(logResults);
+    }
+
+

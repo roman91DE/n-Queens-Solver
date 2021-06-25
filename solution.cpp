@@ -56,16 +56,29 @@ std::string Solution::to_string() const{
 
 // stdout string repr of board
 void Solution::print() const{
-    std::cout << to_string() << "\nRemaining Conflicts = " + std::to_string(-fit) + "\n-----\n";
+    if (!(backtracking_sol)) {
+        std::cout << to_string() << "\nRemaining Conflicts = " + std::to_string(-fit) + "\n-----\n";
+        }
+    else {
+        std::cout << "\n" << to_string() << "\n"; 
+        }
 }
 
 
 // stdout underlying vector solution and fitness
 void Solution::debug_print() const {
-    for (unsigned int i = 0; i<dimension; ++i) {
-        std::cout <<  vec[i] << ' ';
+    if (!(backtracking_sol)) {
+        for (unsigned int i = 0; i<dimension; ++i) {
+            std::cout <<  vec[i] << ' ';
+            }
+        std::cout << "Fitness = " << fit <<'\n';}
+    else {
+        for (unsigned int j{0}; j<dimension; ++j) {
+            if (vec[j] != -1){
+                std::cout << vec[j] << ' ';
+            }
+        }
     }
-    std::cout << "Fitness = " << fit <<'\n';
 }
 
 // mutate by swapping gene with another random gene
@@ -225,15 +238,18 @@ bool Solution::is_possible(int num) const {
         if (vec[i] == num) { return false; }
         if ( ((vec[i] - num) == (i-limit))  ||  ((vec[i] - num) == -(i-limit)) ) { return false; }
     }
+    // std::cout << "__is possible -> true__\n"; 
     return true;
 }
 
 void Solution::place_queen(int pos, int indx) {
     vec[indx] = pos;
+    // std::cout << "__placed queen__\n"; 
 }
 
 void Solution::remove_queen(int indx) {
     vec[indx] = -1;
+    // std::cout << "__removed queen__\n"; 
 }
 
 
@@ -242,13 +258,9 @@ bool Solution::is_solved() const {
         std::cout << "Error - The method is_solved() may only be called on Solutions with member backtracking_sol = true\n";
         return false;
     }
-
-    if (vec.size()< dimension) { return false; }
-
+    unsigned int count{0};
     for (auto &it:vec) {
-        if (it==-1) {
-            return false;
-        }
+        if (it != -1)     { ++count; }
     }
-    return (fitness()==0);
+    return (count==dimension);
 }
