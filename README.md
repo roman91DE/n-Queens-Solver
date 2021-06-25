@@ -1,4 +1,4 @@
-# N-Queens
+# n-Queens Solver
 
 C++ Console Application to solve the N-Queens Problem
 
