@@ -7,6 +7,16 @@
 #include <vector>
 #include <string>
 
+
+// empty constructor (workaround)
+
+Solution::Solution(){
+    std::vector <int> vec{};
+    int dimension{0}, fit{0};
+    float m_rate{0.0}, c_rate{0.0};
+    bool backtracking_sol{false};
+}
+
 // construct a random Solution with input parameters
 Solution::Solution(int _dimension,  float _m_rate, float _c_rate)
     : dimension(_dimension), m_rate(_m_rate), c_rate(_c_rate), backtracking_sol(false) {
@@ -17,7 +27,9 @@ Solution::Solution(int _dimension,  float _m_rate, float _c_rate)
     std::mt19937 g(rd());
 
     std::shuffle(vec.begin(), vec.end(), g);
+    
     fit = fitness();
+    
 
 } 
 

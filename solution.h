@@ -21,6 +21,7 @@ class Solution{
         Solution(int _dimension, float _m_rate, float _c_rate);
         Solution(const std::vector <int> &v, int _dimension, float _m_rate, float _c_rate);
         Solution (const Solution &other);
+        Solution();
 
         std::string to_string() const;
         void print() const;
@@ -55,6 +56,7 @@ class Solution{
 
         friend class Population;
         friend class Backtracking;
+        friend class SA;
 };
 
 #endif
