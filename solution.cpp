@@ -11,6 +11,7 @@
 // empty constructor (workaround)
 
 Solution::Solution(){
+
     std::vector <int> vec{};
     int dimension{0}, fit{0};
     float m_rate{0.0}, c_rate{0.0};
@@ -20,6 +21,7 @@ Solution::Solution(){
 // construct a random Solution with input parameters
 Solution::Solution(int _dimension,  float _m_rate, float _c_rate)
     : dimension(_dimension), m_rate(_m_rate), c_rate(_c_rate), backtracking_sol(false) {
+
     for (unsigned int i=0; i<dimension; ++i) {
         vec.push_back(i);
     }
@@ -113,6 +115,44 @@ void Solution::swap_mutation() {
     }
     fit = fitness();
 }
+
+
+void Solution::reverse_mutation() {
+
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::uniform_int_distribution <int> int_distr(0,dimension-1);   
+
+    int i, j;
+    int k = 0;
+    std::vector <int> temp_vec;
+
+    i = int_distr(g);
+    j = int_distr(g);
+    while (i > j) { j = int_distr(g); }
+
+    for (unsigned int ind{i}; ind<j; ++ind) {
+        temp_vec.push_back(vec[ind]);
+    }
+    
+    for (unsigned int rev{j}; rev>i; --rev) {
+        vec[rev] = temp_vec[k++];
+    }
+    fit = fitness();
+}
+
+void Solution::permutation() {
+
+    std::random_device rd;
+    std::mt19937 g;
+    std::uniform_real_distribution <float> fl_distr (0,1);
+
+    if (fl_distr(g) > 0.5) { swap_mutation(); }
+    else                   { reverse_mutation(); }
+
+}
+
+
 
 int Solution::fitness() const {
     int fitness{0};

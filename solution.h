@@ -14,20 +14,22 @@ class Solution{
         int dimension, fit;
         float m_rate, c_rate;
         bool backtracking_sol;
-        
+
+
 
     public:
     
         Solution(int _dimension, float _m_rate, float _c_rate);
         Solution(const std::vector <int> &v, int _dimension, float _m_rate, float _c_rate);
         Solution (const Solution &other);
-        Solution();
+    
 
         std::string to_string() const;
         void print() const;
         void debug_print() const;
 
         void swap_mutation();
+        void reverse_mutation();
         static Solution onepoint_crossover(const Solution &mother, const Solution &father);
         
         int fitness() const;
@@ -53,6 +55,14 @@ class Solution{
         void place_queen(int pos, int indx);
         void remove_queen(int indx);
         bool is_solved() const;
+
+        // simulated annealing
+
+        Solution();
+        void permutation();
+        
+
+
 
         friend class Population;
         friend class Backtracking;
