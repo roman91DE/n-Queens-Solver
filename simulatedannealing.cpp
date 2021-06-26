@@ -90,7 +90,7 @@ void SA::simulated_annealing() {
 
     int board_size{4};
     char def;
-    float t_start{100000000.0}, t_end{100.0}, alpha{0.999};
+    float t_start{100000000.0}, t_end{0.9}, alpha{0.999};
 
     std::cout << "Solving n-Queens Problem using a Simulated Annealing Algorithm\n-------\nEnter Board Size n=";
     std::cin >> board_size;
