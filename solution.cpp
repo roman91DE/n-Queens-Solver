@@ -58,7 +58,7 @@ std::string Solution::to_string() const{
             if (vec[i] == j)    s += 'Q';
             else { 
                 if (b)  s+=' ';
-                else    s+='.';
+                else    s+='-';
                 }
         }
         s += '\n';
