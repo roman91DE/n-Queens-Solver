@@ -61,8 +61,5 @@ void MA::multithreaded_annealing() {
     int time_consumed = std::chrono::duration_cast <std::chrono::milliseconds>(t - t0).count();
     std::cout << "Total Time consumed to find all solutions: " << time_consumed << " miliseconds\n";    
     
-
-
-
     return;
 }
