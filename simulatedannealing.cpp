@@ -41,7 +41,7 @@ void SA::run() {
 
         cooling();
 
-        if (rounds_no_improv > 25) {
+        if (rounds_no_improv > 8) {
             cur_sol = best_sol;
             cur_fit = best_fit;
             rounds_no_improv = 0;
@@ -53,10 +53,10 @@ void SA::run() {
         new_sol.permutation();
         int temp_fit = new_sol.fit;
 
-        std::cout << "Current Temp: " << t_cur << "\tCurrent Fitness: " << cur_fit << "\tPermutation Fitness: "<< temp_fit << "\tBest Fitness: " << best_fit << "\n";
+        std::cout << "Temperature: " << t_cur << "\tCurrent Fit: " << cur_fit << "\tNew Fit: "<< temp_fit <<  "\tBest Fit: " << best_fit << "\n";
 
         // new solution is better
-        if ( temp_fit > cur_fit) {
+        if ( temp_fit >= cur_fit ) {
             cur_sol = new_sol;
             cur_fit = temp_fit;
             if (cur_fit > best_fit) {
@@ -68,9 +68,13 @@ void SA::run() {
         // new solution is worse
         else {
             ++rounds_no_improv;
-            float p = exp( - ((temp_fit - cur_fit) / t_cur) );
-            std::cout << "p = " << p <<"\n";
-            if (fl_distr(g) > p) {
+
+            int f_y = -temp_fit;
+            int f_x = -cur_fit;
+
+            float p = exp(-( (f_y - f_x) / t_cur));
+            // std::cout << "Probability = " << p <<"\n";
+            if (fl_distr(g) > (p)) {
                 cur_sol = new_sol;
                 cur_fit = temp_fit;
             }
@@ -85,17 +89,21 @@ void SA::run() {
 void SA::simulated_annealing() {
 
     int board_size{4};
-    float t_start, t_end, alpha;
+    char def;
+    float t_start{100000000.0}, t_end{100.0}, alpha{0.999};
 
     std::cout << "Solving n-Queens Problem using a Simulated Annealing Algorithm\n-------\nEnter Board Size n=";
     std::cin >> board_size;
-    std::cout << "\nSet real valued Starting Temperature = ";
-    std::cin >> t_start;
-    std::cout << "\nSet real valued End Temperature = ";
-    std::cin >> t_end;
-    std::cout << "\nSet real valued factor for geometric cooling  = ";
-    std::cin >> alpha;
-
+    std::cout << "\nUse Default Parameters[y/N]? ";
+    std::cin >> def;
+    if ((def == 'N') || (def == 'n')) {
+        std::cout << "\nSet real valued Starting Temperature = ";
+            std::cin >> t_start;
+            std::cout << "\nSet real valued End Temperature = ";
+            std::cin >> t_end;
+            std::cout << "\nSet real valued factor for geometric cooling  = ";
+            std::cin >> alpha;
+    }
     std::cout << "\nStarting Simulated Annealing Algorithm\n";
     SA sa = SA(board_size, t_start, t_end, alpha);
     return;
