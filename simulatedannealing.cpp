@@ -19,8 +19,6 @@ SA::SA(int _board_size, float _t_start, float _t_end, float _alpha)
     assert (t_start > _t_end);
     assert ((alpha > 0.0) && (alpha <1.0));
 
-    run();
-
 }
 
 void SA::cooling() {
@@ -107,6 +105,7 @@ void SA::simulated_annealing() {
     }
     std::cout << "\nStarting Simulated Annealing Algorithm\n";
     SA sa = SA(board_size, t_start, t_end, alpha);
+    sa.run();
     return;
 }
 
@@ -132,14 +131,11 @@ Solution SA::run_return_only() {
             cur_fit = best_fit;
             rounds_no_improv = 0;
         }
-        
 
         Solution new_sol = Solution(cur_sol);
 
         new_sol.permutation();
         int temp_fit = new_sol.fit;
-
-        std::cout << "Temperature: " << t_cur << "\tCurrent Fit: " << cur_fit << "\tNew Fit: "<< temp_fit <<  "\tBest Fit: " << best_fit << "\n";
 
         // new solution is better
         if ( temp_fit >= cur_fit ) {
@@ -159,18 +155,13 @@ Solution SA::run_return_only() {
             int f_x = -cur_fit;
 
             float p = exp(-( (f_y - f_x) / t_cur));
-            // std::cout << "Probability = " << p <<"\n";
             if (fl_distr(g) > (p)) {
                 cur_sol = new_sol;
                 cur_fit = temp_fit;
             }
         }
     }
-    std::cout << "Termination condition reached\nBest Solution:\n";
-    if (best_sol.fit == 0) {
-        return best_sol;
-    }
-    return;
+    return best_sol;
 }
 
 

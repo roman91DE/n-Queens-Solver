@@ -45,6 +45,6 @@ void Backtracking::exhaustive_backtracking() {
     auto t0 = std::chrono::high_resolution_clock::now();
     b.run();
     auto t = std::chrono::high_resolution_clock::now();
-    int time_consumed = std::chrono::duration_cast <std::chrono::seconds>(t - t0).count();
-    std::cout << "Total Time consumed to find all solutions: " << time_consumed << " seconds\n";
+    int time_consumed = std::chrono::duration_cast <std::chrono::milliseconds>(t - t0).count();
+    std::cout << "Total Time consumed to find all solutions: " << time_consumed << " miliseconds\n";
 }
