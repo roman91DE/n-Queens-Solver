@@ -14,10 +14,11 @@ int main() {
 
     while (!(terminate)) {
         std::cout << "\nSolving the n-Queens Problem\n---------\nChoose method of computation:\n"
-                  << "1 - Evolutionary Algorithm\n2 - Backtracking Algorithm \n3 - Simulated Annealing\n4 - Multithreaded Simulated Annealing\n5 - Exit Programm\n";
+                  << "1 - Evolutionary Algorithm\n2 - Backtracking Algorithm \n3 - Simulated Annealing"
+                  << "\n4 - Multithreaded Simulated Annealing\n5 - Exit Programm\n";
         std::cin >> choice;
         switch (choice) {
-            
+
             case 1:
                 EA::evolutionary_algorithm();
                 break;
